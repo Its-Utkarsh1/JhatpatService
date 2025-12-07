@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Services</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            padding-bottom: 90px;
+            /* ✅ Adds space for footer */
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            /* ✅ No horizontal scroll */
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Header Section */
+        .header {
+            margin: -9px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 10px;
+            /* ✅ minimal padding */
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .location img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .location-text small {
+            color: gray;
+            font-size: 0.75rem;
+        }
+
+        .call-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #14213d;
+        }
+
+        /* 
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin: 0 10px;
+         
+            padding: 8px 12px;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+        } 
+        
+        */
+
+        /* Section Title */
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 15px 10px 10px 10px;
+        }
+
+        /* Services Section */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 20px 10px;
+            padding: 0 10px 20px 10px;
+            justify-items: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .service-item {
+            text-align: center;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: #f5f6f8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin: 0 auto 8px;
+            color: #14213d;
+            transition: all 0.3s ease;
+        }
+
+        .icon-circle:hover {
+            background: #14213d;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Cards Section */
+        .cards {
+            display: flex;
+            gap: 10px;
+            padding: 0 10px 0px 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex: 0 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            width: 240px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+        }
+
+        .card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 12px;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            color: #000;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .strike {
+            color: gray;
+            text-decoration: line-through;
+        }
+
+        .provider {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .provider-info {
+            font-size: 0.85rem;
+        }
+
+        .add-btn {
+            background: #14213d;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .bottom-nav div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+            color: gray;
+        }
+
+        .bottom-nav .active {
+            color: #fcbf49;
+        }
+
+        .bottom-nav i {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        /* Popup Overlay */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .popup {
+            background: #fff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px 15px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-btn {
+            text-align: right;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: #666;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 10px;
+            justify-items: center;
+        }
+
+        .service-item-popup {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #000;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo-container img {
+  height: 50px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ Header with Jhatpat Logo -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="/assets/nameLogo.png" alt="Jhatpat Logo">
+        </div>
+    </div>
+
+    <!-- SearchBar
+    <div class="search-bar">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search" />
+        <i class="bi bi-sliders"></i>
+    </div> -->
+
+    <!-- Services -->
+    <h2>Services</h2>
+    <div class="services">
+        <a href="/page/cleaning">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-brush"></i></div>
+                <p>Cleaning</p>
+            </div>
+        </a>
+
+        <a href="/page/repairing">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-briefcase"></i></div>
+                <p>Repairing</p>
+            </div>
+        </a>
+
+        <a href="/page/painting">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-paint-bucket"></i></div>
+                <p>Painting</p>
+            </div>
+        </a>
+
+        <a href="/page/laundry">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-basket"></i></div>
+                <p>Laundry</p>
+            </div>
+        </a>
+
+        <a href="/page/appliances">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-hammer"></i></div>
+                <p>Appliance</p>
+            </div>
+        </a>
+
+        <a href="/page/plumbing">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-tools"></i></div>
+                <p>Plumbing</p>
+            </div>
+        </a>
+
+        <a href="/page/shifing">
+            <div class="service-item">
+                <div class="icon-circle"><i class="bi bi-truck"></i></div>
+                <p>Shifting</p>
+            </div>
+        </a>
+
+        <div class="service-item" id="moreBtn">
+            <div class="icon-circle"><i class="bi bi-grid"></i></div>
+            <p>More</p>
+        </div>
+    </div>
+
+
+    <!-- Popup (Hidden Initially) -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="close-btn" id="closePopup"><i class="bi bi-x-lg"></i></div>
+
+            <!-- ✅ 3x4 Service Grid -->
+            <div class="services-grid">
+
+                <a href="/page/cleaning" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-brush"></i></div>
+                    <p>Cleaning</p>
+                </a>
+
+                <a href="/page/repairing" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-briefcase"></i></div>
+                    <p>Repairing</p>
+                </a>
+
+                <a href="/page/painting" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-paint-bucket"></i></div>
+                    <p>Painting</p>
+                </a>
+
+                <a href="/page/laundry" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-basket"></i></div>
+                    <p>Laundry</p>
+                </a>
+
+                <a href="/page/appliances" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-hammer"></i></div>
+                    <p>Appliance</p>
+                </a>
+
+                <a href="/page/plumbing" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-tools"></i></div>
+                    <p>Plumbing</p>
+                </a>
+
+                <a href="/page/shifing" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-truck"></i></div>
+                    <p>Shifting</p>
+                </a>
+
+                <a href="/page/beauty" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-droplet-half"></i></div>
+                    <p>Beauty</p>
+                </a>
+
+                <a href="/page/vehicle" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-car-front"></i></div>
+                    <p>Vehicle</p>
+                </a>
+
+                <a href="/page/electronics" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-tv"></i></div>
+                    <p>Electronics</p>
+                </a>
+
+                <a href="/page/massage" class="service-item-popup">
+                    <div class="icon-circle"><i class="bi bi-person-hearts"></i></div>
+                    <p>Massage</p>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Safety & Hygiene Section -->
+    <h2 style="margin-top: 25px;">Safety & Hygiene Standards</h2>
+
+    <div class="safety-container" style="padding: 10px; display: grid; gap: 12px;">
+
+        <div class="safety-card"
+            style="display: flex; gap: 15px; background: #f8f8f8; padding: 12px; border-radius: 12px; align-items: center;">
+            <i class="bi bi-shield-check" style="font-size: 1.6rem; color: #14213d;"></i>
+            <div>
+                <h4 style="font-size: 1rem; margin-bottom: 3px;">Verified Professionals</h4>
+                <p style="font-size: 0.85rem; color: gray;">All experts are identity verified and trained.</p>
+            </div>
+        </div>
+
+        <div class="safety-card"
+            style="display: flex; gap: 15px; background: #f8f8f8; padding: 12px; border-radius: 12px; align-items: center;">
+            <i class="bi bi-droplet" style="font-size: 1.6rem; color: #14213d;"></i>
+            <div>
+                <h4 style="font-size: 1rem; margin-bottom: 3px;">Sanitized Tools</h4>
+                <p style="font-size: 0.85rem; color: gray;">Tools are cleaned and disinfected before every service.</p>
+            </div>
+        </div>
+
+        <div class="safety-card"
+            style="display: flex; gap: 15px; background: #f8f8f8; padding: 12px; border-radius: 12px; align-items: center;">
+            <i class="bi bi-person-badge" style="font-size: 1.6rem; color: #14213d;"></i>
+            <div>
+                <h4 style="font-size: 1rem; margin-bottom: 3px;">Background Checked</h4>
+                <p style="font-size: 0.85rem; color: gray;">Every service provider passes a background check.</p>
+            </div>
+        </div>
+
+        <div class="safety-card"
+            style="display: flex; gap: 15px; background: #f8f8f8; padding: 12px; border-radius: 12px; align-items: center;">
+            <i class="bi bi-cash-stack" style="font-size: 1.6rem; color: #14213d;"></i>
+            <div>
+                <h4 style="font-size: 1rem; margin-bottom: 3px;">Affordable Pricing</h4>
+                <p style="font-size: 0.85rem; color: gray;">Transparent and competitive service charges.</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- Blog / Tips Section -->
+    <h2 style="margin-top: 25px;">Home Care Tips & Guides</h2>
+
+    <div class="blog-container" style="padding: 10px; display: grid; gap: 15px;">
+
+        <div class="blog-card"
+            style="padding: 12px; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+            <h4 style="font-size: 1rem; margin-bottom: 6px;">📝 5 Tips to Keep Your AC Healthy</h4>
+            <p style="color: gray; font-size: 0.85rem;">Simple habits that improve cooling and reduce electricity bills.
+            </p>
+            <a href="/page/acTips" style="font-size: 0.85rem; color: #14213d; font-weight: 600;">Read More →</a>
+        </div>
+
+        <div class="blog-card"
+            style="padding: 12px; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+            <h4 style="font-size: 1rem; margin-bottom: 6px;">📝 Best Home Cleaning Tricks</h4>
+            <p style="color: gray; font-size: 0.85rem;">Quick, easy cleaning techniques used by professionals.</p>
+            <a href="/page/cleaningTricks" style="font-size: 0.85rem; color: #14213d; font-weight: 600;">Read More →</a>
+        </div>
+
+        <div class="blog-card"
+            style="padding: 12px; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+            <h4 style="font-size: 1rem; margin-bottom: 6px;">📝 How to Maintain Your Washing Machine</h4>
+            <p style="color: gray; font-size: 0.85rem;">Increase the lifespan of your washing machine with these steps.
+            </p>
+            <a href="/page/washingMachine" style="font-size: 0.85rem; color: #14213d; font-weight: 600;">Read More →</a>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav ">
+        <div class="active">
+            <i class="bi bi-house-fill"></i>
+            <span>Home</span>
+        </div>
+
+        <div onclick="window.location.href='/page/categories'" style="cursor: pointer;">
+            <i class="bi bi-grid"></i>
+            <span>Categories</span>
+        </div>
+
+
+        <% if (user && user.role==="provider" ) { %>
+
+            <div onclick="window.location.href='/provider/request'" style="cursor: pointer;">
+                <i class="bi bi-briefcase"></i>
+                <span>Requests</span>
+            </div>
+
+            <% } else { %>
+
+                <div onclick="window.location.href='/page/booking'" style="cursor: pointer;">
+                    <i class="bi bi-clipboard"></i>
+                    <span>Bookings</span>
+                </div>
+
+                <% } %>
+
+                    <div onclick="window.location.href='/page/profile'" style="cursor: pointer;">
+                        <i class="bi bi-person"></i>
+                        <span>Profile</span>
+                    </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        const moreBtn = document.getElementById("moreBtn");
+        const popupOverlay = document.getElementById("popupOverlay");
+        const closePopup = document.getElementById("closePopup");
+
+        moreBtn.addEventListener("click", () => {
+            popupOverlay.style.display = "flex";
+        });
+
+        closePopup.addEventListener("click", () => {
+            popupOverlay.style.display = "none";
+        });
+
+        popupOverlay.addEventListener("click", (e) => {
+            if (e.target === popupOverlay) popupOverlay.style.display = "none";
+        });
+    </script>
+</body>
+
+</html>

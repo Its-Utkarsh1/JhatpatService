@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Edit Profile</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden !important;
+            font-family: "Poppins", sans-serif;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background: #d4aa36;
+            color: #fff;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Content Wrapper */
+        .content {
+            width: 100%;
+            padding: 14px 16px;
+        }
+
+        /* Profile Image Box */
+        .profile-box {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: auto;
+            overflow: hidden;
+            border: 3px solid #14213d;
+            position: relative;
+        }
+
+        .profile-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #d4aa36;
+            color: #fff;
+            padding: 4px 6px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .upload-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        #fileInput {
+            width: 100%;
+            max-width: 190px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Save Button */
+        .save-btn {
+            width: 100%;
+            background: #d4aa36;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <i class="bi bi-arrow-left" onclick="history.back()"></i>
+        Edit Profile
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+        <form action="/user/updateProfile" method="POST" enctype="multipart/form-data">
+
+            <div class="profile-box">
+                <img id="previewImg" src="/Public/assets/default.jpg" alt="Profile">
+            </div>
+
+            <div class="upload-section">
+                <label for="fileInput" class="upload-label">Change Profile Picture</label>
+                <input type="file" id="fileInput" name="profilePic" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Full Name" >
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" placeholder="Phone Number" >
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Email Address" >
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <textarea name="address" rows="3" placeholder="Address"></textarea>
+            </div>
+
+            <button class="save-btn">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("fileInput").addEventListener("change", function (e) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById("previewImg").src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
+
+</body>
+
+</html>

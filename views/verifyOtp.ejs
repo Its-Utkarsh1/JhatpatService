@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enter OTP | Home Service</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        p.subtext {
+            font-size: 0.9rem;
+            color: gray;
+            margin-bottom: 20px;
+        }
+
+        /* OTP BOXES */
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .otp-box {
+            width: 48px;
+            height: 55px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .otp-box:focus {
+            border-color: #14213d;
+            outline: none;
+        }
+
+        /* Error message */
+        .error {
+            color: #e63946;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        /* Verify Button */
+        .verify-btn {
+            width: 100%;
+            max-width: 350px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background-color: #14213d;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Resend OTP */
+        .resend {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .resend a {
+            color: #fcbf49;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="/assets/logo.png" class="logo" />
+
+    <h2>Enter OTP</h2>
+    <p class="subtext">We have sent a 4-digit code to <b>
+            <%= email %>
+        </b></p>
+
+    <!-- 🔥 ERROR MESSAGE BOX -->
+    <% if (typeof error !=="undefined" && error) { %>
+        <div style="display:flex; justify-content:center; width:100%; margin-top:10px;">
+            <div style="
+        background:#fff3cd;
+        color:#856404;
+        padding:12px 15px;
+        border-radius:8px;
+        width:100%;
+        max-width:350px;
+        border:1px solid #ffeeba;
+        font-size:0.9rem;
+        text-align:center;">
+                <%= error %>
+            </div>
+        </div>
+        <% } %>
+
+
+            <form action="/user/forgetPassword/verifyOtp" method="POST" id="otpForm">
+                <input type="hidden" name="email" value="<%= email %>" />
+
+                <div class="otp-container">
+                    <input type="hidden" name="email" value="<%= email %>">
+                    <input type="hidden" name="userId" value="<%= userId %>">
+                    <input class="otp-box" type="text" maxlength="1" name="otp1" required>
+                    <input class="otp-box" type="text" maxlength="1" name="otp2" required>
+                    <input class="otp-box" type="text" maxlength="1" name="otp3" required>
+                    <input class="otp-box" type="text" maxlength="1" name="otp4" required>
+
+                </div>
+
+                <button class="verify-btn" type="submit">Verify OTP</button>
+            </form>
+
+            <p class="resend">
+                Didn’t receive the code?
+                <a href="#" onclick="document.getElementById('resendOtpForm').submit()">Resend OTP</a>
+            </p>
+            <script>
+                // Auto focus next input
+                const inputs = document.querySelectorAll(".otp-box");
+
+                inputs.forEach((input, index) => {
+                    input.addEventListener("input", () => {
+                        if (input.value.length === 1 && index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        }
+                    });
+
+                    input.addEventListener("keydown", (e) => {
+                        if (e.key === "Backspace" && index > 0 && !input.value) {
+                            inputs[index - 1].focus();
+                        }
+                    });
+                });
+
+                // Join OTP digits before submitting
+                const form = document.getElementById("otpForm");
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    let otp = "";
+
+                    inputs.forEach(i => otp += i.value);
+
+                    const hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "otp";
+                    hiddenInput.value = otp;
+
+                    form.appendChild(hiddenInput);
+                    form.submit();
+                });
+            </script>
+
+</body>
+
+</html>

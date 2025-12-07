@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account | Home Service</title>
+
+    <!-- Bootstrap Icons CDN (for eye icon) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: #000;
+            padding: 8px 20px;
+        }
+
+        /* Logo */
+        .logo {
+            width: 80px;
+            margin: 35px auto 25px auto;
+            /* Centers horizontally */
+            display: block;
+            /* Ensures margin auto works */
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        p.subtext {
+            font-size: 0.95rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Input fields */
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .input-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: #14213d;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 45px 14px 14px;
+            border: 1px solid #14213d;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            background-color: #fff;
+        }
+
+        input:focus {
+            border-color: #fcbf49;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 38px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Signup button */
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background-color: #14213d;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        /* Footer text */
+        .login-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #444;
+            text-align: center;
+        }
+
+        .login-link a {
+            color: #fcbf49;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px 14px;
+            border: 1px solid #14213d;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            background-color: #fff;
+            appearance: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin-top: -40px;">
+        <!-- Logo -->
+        <img src="/assets/logo.png" alt="Logo" class="logo" />
+
+        <!-- Heading -->
+        <h1>Create New Account</h1>
+        <p class="subtext">
+            Join us and get started in seconds.
+        </p>
+
+        <!-- 🔥 ERROR MESSAGE BOX -->
+        <% if (typeof error !=="undefined" && error) { %>
+            <div style="
+        background:#fff3cd;
+        color:#856404;
+        padding:12px 15px;
+        border-radius:8px;
+        width:100%;
+        max-width:350px;
+        margin-bottom:18px;
+        border:1px solid #ffeeba;
+        font-size:0.9rem;
+        text-align:center;">
+                <%= error %>
+            </div>
+            <% } %>
+
+
+                <!-- Signup form -->
+                <form action="/user/signup" method="POST" class="form-container">
+
+                    <div class="input-box">
+                        <label>Enter Full Name</label>
+                        <input type="text" id="Name" name="name" placeholder="Ex: Smith Johnson" required />
+                    </div>
+
+                    <div class="input-box">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="mobileNumber" name="phone" placeholder="Ex: (219) 555-0114" required />
+                    </div>
+
+                    <div class="input-box">
+                        <label>Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Ex: smithjohnson@example.com"
+                            required />
+                    </div>
+
+                    <div class="input-box">
+                        <label>Select Role</label>
+                        <select id="role" name="role" required>
+                            <option value="">Select Role:</option>
+                            <option value="user">User</option>
+                            <option value="provider">Service Provider</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-box">
+                        <label>Address</label>
+                        <input type="text" id="address" name="address" placeholder="Ex: 123 Fake St, Springfield"
+                            required />
+                    </div>
+
+                    <div class="input-box">
+                        <label>Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••••" required />
+                        <i class="bi bi-eye-slash toggle-password" onclick="togglePassword('password', this)"></i>
+                    </div>
+
+                    <button type="submit" class="signup-btn">Signup</button>
+
+                </form>
+
+
+                <!-- Footer -->
+                <div class="login-link">
+                    Already have an account? <a href="/page/login">Login</a>
+                </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        function togglePassword(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.replace("bi-eye-slash", "bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.replace("bi-eye", "bi-eye-slash");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking Summary</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #fff;
+      padding-bottom: 60px;
+      margin: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header i { font-size: 22px; margin-right: 12px; cursor: pointer; }
+
+    .item-card {
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .item-card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .price { font-size: 16px; font-weight: 600; }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .summary-box {
+      padding: 16px;
+      font-size: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .footer-btn {
+      margin: 20px auto;
+      width: 90%;
+      background: #14213d;
+      color: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <i class="bi bi-arrow-left" onclick="history.back()"></i> Booking Summary
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="summary-box">
+    <div class="summary-row">
+      <span>Item Total</span>
+      <span id="itemTotal">₹0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Discount</span>
+      <span>₹10</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Delivery Fee</span>
+      <span style="color: green; font-weight: 600;">Free</span>
+    </div>
+
+    <hr />
+
+    <div class="summary-row total">
+      <span>Grand Total</span>
+      <span id="grandTotal">₹0</span>
+    </div>
+  </div>
+
+  <div class="footer-btn" onclick="window.location.href='/select-slot'">
+    Select Slot
+  </div>
+
+<script>
+loadBookingItems();
+
+function loadBookingItems() {
+  let items = JSON.parse(localStorage.getItem("bookingItems")) || [];
+  const container = document.getElementById("itemsContainer");
+  container.innerHTML = "";
+
+  items.forEach((item, index) => {
+    container.innerHTML += `
+      <div class="item-card">
+        <img src="/services/image/${item._id}" />
+
+        <div>
+          <div class="item-title">${item.name}</div>
+          <div class="price">₹${item.price}</div>
+
+          <div class="qty-box">
+            <div class="qty-btn" onclick="changeQty(${index}, -1)">-</div>
+            <div>${item.qty}</div>
+            <div class="qty-btn" onclick="changeQty(${index}, 1)">+</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  updateTotals();
+}
+
+function changeQty(index, diff) {
+  let items = JSON.parse(localStorage.getItem("bookingItems"));
+  items[index].qty += diff;
+
+  if (items[index].qty <= 0) items.splice(index, 1);
+
+  localStorage.setItem("bookingItems", JSON.stringify(items));
+  loadBookingItems();
+}
+
+function updateTotals() {
+  let items = JSON.parse(localStorage.getItem("bookingItems")) || [];
+  
+  let total = 0;
+  items.forEach(i => total += i.price * i.qty);
+
+  document.getElementById("itemTotal").innerText = "₹" + total;
+  document.getElementById("grandTotal").innerText = "₹" + (total - 10);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Home Service</title>
+    <!-- ✅ Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            /* ✅ Prevent side scroll */
+            background-color: #fff;
+        }
+
+        body {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* ← FIXED */
+            min-height: 50vh;
+            color: #000;
+            padding: 73px 20px 40px;
+            /* ← safer spacing */
+            overflow-x: hidden;
+        }
+
+        /* Logo */
+
+        .logo {
+            height: 130px;
+            width: 180px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        p.subtext {
+            font-size: 0.95rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Input fields */
+        .input-box {
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: #fafafa;
+        }
+
+        input:focus {
+            border-color: #14213d;
+        }
+
+        .forgot {
+            text-align: left;
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+
+        .forgot a {
+            color: #14213d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Login button */
+        .login-btn {
+            width: 100%;
+            max-width: 350px;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background-color: #14213d;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Divider text */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            margin: 25px 0;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            width: 60px;
+            background: #ddd;
+            margin: 0 10px;
+        }
+
+        /* Google button */
+        .google-btn {
+            width: 100%;
+            max-width: 350px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            font-size: 1rem;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .google-btn img {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Signup text */
+        .signup {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #555;
+             text-align: center;
+    white-space: nowrap;
+        }
+
+        .signup a {
+            color: #fcbf49;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <img src="/assets/logo.png" alt="Logo" class="logo" />
+
+    <!-- Welcome text -->
+    <h1>Welcome</h1>
+    <p class="subtext">Log in to your account using EmailID</p>
+
+    <!-- 🔥 ERROR MESSAGE BOX -->
+    <% if (typeof error !=="undefined" && error) { %>
+        <div style="
+            background:#fff3cd;
+            color:#856404;
+            padding:12px 15px;
+            border-radius:8px;
+            width:100%;
+            max-width:350px;
+            margin-bottom:18px;
+            border:1px solid #ffeeba;
+            font-size:0.9rem;
+            text-align:center;">
+            <%= error %>
+        </div>
+        <% } %>
+
+            <form action="/user/login" method="POST" class="login-form">
+
+                <!-- Input fields -->
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Enter your email" required />
+                    <input type="password" name="password" placeholder="Password" required />
+
+                </div>
+
+                <div class="forgot">
+                    <a href="/forgetPassword">Forgot Password?</a>
+                </div>
+                <!-- Login button -->
+                <button type="submit" class="login-btn">Login</button>
+
+            </form>
+
+
+            <!-- Divider -->
+            <!-- <div class="divider">Or continue with social account</div> -->
+
+            <!-- Google login -->
+            <!-- <button class="google-btn">
+        <i class="bi bi-google"></i>
+        Continue with Google
+    </button> -->
+
+            <!-- Signup text -->
+            <div class="signup">
+                Didn’t have an account?
+                <a href="/page/signup">Signup</a>
+            </div>
+
+</body>
+
+</html>

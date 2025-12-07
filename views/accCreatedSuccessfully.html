@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Created Successfully</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f2f4f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 30px 20px 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            background-color: #14213d;
+            color: #fff;
+            padding: 14px 0;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1b2b52;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            border: 8px solid #d7dbe1;
+            /* Light grey ring */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <img class="logo-circle" src="../Public/assets/logo.png" alt="Logo" />
+        <h2>Account Created Successfully</h2>
+        <p>Your account created successfully.</p>
+        <button class="btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+</body>
+
+</html>
