@@ -172,69 +172,82 @@
             <i class="bi bi-chevron-right"></i>
         </div>
 
-        <div class="menu-item" onclick="window.location.href='/page/booking'">
-            <div class="menu-left">
-                <i class="bi bi-clipboard"></i>
-                <span>My Bookings</span>
-            </div>
-            <i class="bi bi-chevron-right"></i>
-        </div>
-
-        <div class="menu-item" onclick="window.location.href='/page/privacyPolicy'">
-            <div class="menu-left">
-                <i class="bi bi-clipboard"></i>
-                <span>Privacy Policy</span>
-            </div>
-            <i class="bi bi-chevron-right"></i>
-        </div>
-
-        <div class="menu-item" onclick="window.location.href='/page/termsConditions'">
-            <div class="menu-left">
-                <i class="bi bi-file-earmark-text"></i>
-                <span>Terms & Conditions</span>
-            </div>
-            <i class="bi bi-chevron-right"></i>
-        </div>
-
-        <div class="menu-item logout" onclick="window.location.href='/user/logout'">
-            <div class="menu-left">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div onclick="window.location.href='/page/home'" style="cursor: pointer;">
-            <i class="bi bi-house"></i>
-            <span>Home</span>
-        </div>
-        <div onclick="window.location.href='/page/categories'" style="cursor: pointer;">
-            <i class="bi bi-grid"></i>
-            <span>Categories</span>
-        </div>
-         <% if (user && user.role==="provider" ) { %>
-
-            <div onclick="window.location.href='/provider/request'" style="cursor: pointer;">
-                <i class="bi bi-briefcase"></i>
-                <span>Requests</span>
-            </div>
-
-            <% } else { %>
-
-                <div onclick="window.location.href='/page/booking'" style="cursor: pointer;">
+        <% if (user && user.role==="user" ) { %>
+            <div class="menu-item" onclick="window.location.href='/page/booking'">
+                <div class="menu-left">
                     <i class="bi bi-clipboard"></i>
-                    <span>Bookings</span>
+                    <span>My Bookings</span>
                 </div>
+                <i class="bi bi-chevron-right"></i>
+                </v>
+                <% } else { %>
 
-                <% } %>
-        <div class="active">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-        </div>
-    </div>
+                    <div class="menu-item" onclick="window.location.href='/page/providerBooking'">
+                        <div class="menu-left">
+                            <i class="bi bi-clipboard"></i>
+                            <span>Service Requests</span>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                        </v>
+
+                        <% } %>
+
+
+                            <div class="menu-item" onclick="window.location.href='/page/privacyPolicy'">
+                                <div class="menu-left">
+                                    <i class="bi bi-clipboard"></i>
+                                    <span>Privacy Policy</span>
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+
+                            <div class="menu-item" onclick="window.location.href='/page/termsConditions'">
+                                <div class="menu-left">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                    <span>Terms & Conditions</span>
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+
+                            <div class="menu-item logout" onclick="window.location.href='/user/logout'">
+                                <div class="menu-left">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+
+                    </div>
+
+                    <!-- Bottom Navigation -->
+                    <div class="bottom-nav">
+                        <div onclick="window.location.href='/page/home'" style="cursor: pointer;">
+                            <i class="bi bi-house"></i>
+                            <span>Home</span>
+                        </div>
+                        <div onclick="window.location.href='/page/categories'" style="cursor: pointer;">
+                            <i class="bi bi-grid"></i>
+                            <span>Categories</span>
+                        </div>
+                        <% if (user && user.role==="provider" ) { %>
+
+                            <div onclick="window.location.href='/provider/request'" style="cursor: pointer;">
+                                <i class="bi bi-briefcase"></i>
+                                <span>Requests</span>
+                            </div>
+
+                            <% } else { %>
+
+                                <div onclick="window.location.href='/page/booking'" style="cursor: pointer;">
+                                    <i class="bi bi-clipboard"></i>
+                                    <span>Bookings</span>
+                                </div>
+
+                                <% } %>
+                                    <div class="active">
+                                        <i class="bi bi-person"></i>
+                                        <span>Profile</span>
+                                    </div>
+                    </div>
 </body>
 
 </html>

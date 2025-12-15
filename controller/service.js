@@ -1,4 +1,5 @@
 const Service = require("../models/service");
+const Booking = require("../models/booking");
 
 // CREATE SERVICE
 createService = async (req, res) => {
@@ -34,23 +35,30 @@ createService = async (req, res) => {
 deleteService = async (req, res) => {
     try {
         const user = res.locals.user;
-
         if (!user) return res.status(401).send("Login required");
 
         const service = await Service.findById(req.params.id);
         if (!service) return res.status(404).send("Service not found");
 
         // Authorization check
-        if (user.role !== "provider" || service.providerId.toString() !== user._id.toString()) {
-            return res.status(403).send("Not allowed to delete this service");
+        if (
+            user.role !== "provider" ||
+            service.providerId.toString() !== user._id.toString()
+        ) {
+            return res.status(403).send("Not allowed");
         }
+
         const category = service.mainCategory;
-        await Booking.deleteMany({ serviceId: req.params.id });
+
+        // 1️⃣ Delete bookings linked to service
+        await Booking.deleteMany({ serviceId: service._id });
+
+        // 2️⃣ Delete the service itself (THIS WAS MISSING)
+        await Service.findByIdAndDelete(service._id);
 
         res.redirect(`/page/${category}`);
-
     } catch (err) {
-        console.log("Delete Service Error:", err);
+        console.error("Delete Service Error:", err);
         res.status(500).send("Internal Server Error");
     }
 };
