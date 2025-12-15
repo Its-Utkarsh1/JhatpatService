@@ -16,6 +16,7 @@ createService = async (req, res) => {
             name,
             price,
             mrp,
+            providerMobileNumber:provider.phone,
             providerName: provider.name,
             providerId: provider._id,
             image: req.file ? {

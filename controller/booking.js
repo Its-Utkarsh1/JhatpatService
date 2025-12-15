@@ -28,7 +28,7 @@ createBooking = async (req, res) => {
             serviceId,
             serviceName: service.name,
             providerName: service.providerName,
-            providerId: service.providerId,   // 👈 yahi required hai
+            providerId: service.providerId,   
             price: service.price,
             date,
             time,
