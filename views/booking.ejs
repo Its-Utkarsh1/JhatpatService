@@ -244,7 +244,7 @@
     <% bookings.forEach(b=> { %>
 
       <div class="booking-card" data-status="<%= b.status %>"
-        onclick="window.location.href='/service/details/<%= b.serviceId %>'">
+        onclick="window.location.href='/service/details/<%= b.serviceId._id %>'">
 
         <!-- TOP: PROVIDER NAME (LEFT) + PRICE (RIGHT) -->
         <div class="top-bar">
