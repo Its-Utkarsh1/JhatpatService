@@ -179,18 +179,17 @@
                     <span>My Bookings</span>
                 </div>
                 <i class="bi bi-chevron-right"></i>
-                </v>
-                <% } else { %>
-
-                    <div class="menu-item" onclick="window.location.href='/page/providerBooking'">
-                        <div class="menu-left">
-                            <i class="bi bi-clipboard"></i>
-                            <span>Service Requests</span>
-                        </div>
-                        <i class="bi bi-chevron-right"></i>
-                        </v>
-
-                        <% } %>
+            </div>
+            <% } %>
+            <% if (user && user.role==="provider" ) { %>
+            <div class="menu-item" onclick="window.location.href='/page/booking'">
+                <div class="menu-left">
+                    <i class="bi bi-clipboard"></i>
+                    <span>Service Requests</span>
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+            <% } %>
 
 
                             <div class="menu-item" onclick="window.location.href='/page/privacyPolicy'">
