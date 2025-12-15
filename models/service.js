@@ -13,7 +13,7 @@ const serviceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    providerMobileNumber: {
+    phone: {
         type: String,
         required: true
     },
